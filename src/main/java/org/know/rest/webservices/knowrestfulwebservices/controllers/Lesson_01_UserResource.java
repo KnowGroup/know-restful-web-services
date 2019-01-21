@@ -2,6 +2,7 @@ package org.know.rest.webservices.knowrestfulwebservices.controllers;
 
 import java.net.URI;
 import java.util.List;
+import javax.validation.Valid;
 import org.know.rest.webservices.knowrestfulwebservices.dao.UserDaoService;
 import org.know.rest.webservices.knowrestfulwebservices.exception.UserNotFoundException;
 import org.know.rest.webservices.knowrestfulwebservices.model.User;
@@ -44,7 +45,7 @@ public class Lesson_01_UserResource {
     }
     
     @PostMapping(path = "users")
-    public ResponseEntity<Object> createUser(@RequestBody User user){
+    public ResponseEntity<Object> createUser(@Valid @RequestBody User user){
         final User savedUser = daoService.createUser(user);
         final URI resourceLocation = 
                 ServletUriComponentsBuilder

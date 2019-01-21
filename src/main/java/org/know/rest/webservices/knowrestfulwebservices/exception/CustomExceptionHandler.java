@@ -1,8 +1,10 @@
 package org.know.rest.webservices.knowrestfulwebservices.exception;
 
 import java.time.LocalDate;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,4 +34,10 @@ public class CustomExceptionHandler extends
         return new ResponseEntity(response,HttpStatus.NOT_FOUND);
     }
 
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        ExceptionResponse response = new ExceptionResponse(LocalDate.now(),
+                "Validation Failed",ex.getBindingResult().toString());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }

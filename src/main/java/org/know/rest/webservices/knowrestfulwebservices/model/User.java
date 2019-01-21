@@ -2,6 +2,9 @@ package org.know.rest.webservices.knowrestfulwebservices.model;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -11,9 +14,13 @@ public class User {
 
     private Integer id;
 
+    @Size(min = 2, message = "User Name must be of minimum 2 letters")
+    @NotNull
     private String name;
 
-    private LocalDate date;
+    @Past( message = "Birthdate must only be in past")
+    @NotNull
+    private LocalDate birthDate;
 
     protected User(){
         
@@ -21,7 +28,7 @@ public class User {
     public User(int id, String name, LocalDate date) {
         this.id = id;
         this.name = name;
-        this.date = date;
+        this.birthDate = date;
     }
 
     public Integer getId() {
@@ -32,13 +39,13 @@ public class User {
         return name;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", name=" + name + ", date=" + date + '}';
+        return "User{" + "id=" + id + ", name=" + name + ", Birthdate=" + birthDate + '}';
     }
 
     public void setId(Integer id) {
@@ -49,8 +56,8 @@ public class User {
         this.name = name;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
     @Override
@@ -58,7 +65,7 @@ public class User {
         int hash = 3;
         hash = 37 * hash + Objects.hashCode(this.id);
         hash = 37 * hash + Objects.hashCode(this.name);
-        hash = 37 * hash + Objects.hashCode(this.date);
+        hash = 37 * hash + Objects.hashCode(this.birthDate);
         return hash;
     }
 
@@ -80,7 +87,7 @@ public class User {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.date, other.date)) {
+        if (!Objects.equals(this.birthDate, other.birthDate)) {
             return false;
         }
         return true;
