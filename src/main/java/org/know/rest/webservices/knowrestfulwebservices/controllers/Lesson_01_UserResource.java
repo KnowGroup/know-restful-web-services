@@ -7,6 +7,7 @@ import org.know.rest.webservices.knowrestfulwebservices.exception.UserNotFoundEx
 import org.know.rest.webservices.knowrestfulwebservices.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,8 +33,14 @@ public class Lesson_01_UserResource {
     @GetMapping(path = "/users/id/{id}")
     public User retriveUser(@PathVariable Integer id){
         final User user = daoService.userWithId(id);
-        if(user == null) throw new UserNotFoundException(); 
+        if(user == null) throw new UserNotFoundException("id : "+id); 
         return user;
+    }
+    
+    @DeleteMapping(path = "/users/id/{id}")
+    public void deleteUser(@PathVariable Integer id){
+        final User user = daoService.deleteUserWithId(id);
+        if(user == null) throw new UserNotFoundException("id : "+id); 
     }
     
     @PostMapping(path = "users")

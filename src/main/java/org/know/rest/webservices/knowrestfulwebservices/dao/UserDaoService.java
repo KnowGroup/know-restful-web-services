@@ -1,6 +1,7 @@
 package org.know.rest.webservices.knowrestfulwebservices.dao;
 
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -38,5 +39,15 @@ public class UserDaoService {
         }
         users.add(user);
         return userWithId(counter.get());
+    }
+
+    public User deleteUserWithId(Integer id) {
+        for(User u : users){
+            if(u.getId().intValue() == id){
+                users.remove(u);
+                return u;
+            }
+        }
+        return null;
     }
 }
