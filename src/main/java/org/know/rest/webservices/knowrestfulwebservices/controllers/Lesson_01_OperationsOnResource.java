@@ -24,7 +24,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
  * @author KnowGroup
  */
 @RestController
-public class Lesson_01_UserResource {
+public class Lesson_01_OperationsOnResource {
 
     @Autowired
     private UserDaoService daoService;

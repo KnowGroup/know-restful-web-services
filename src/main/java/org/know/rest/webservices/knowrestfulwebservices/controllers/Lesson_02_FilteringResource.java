@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author KnowGroup
  */
 @RestController
-public class Lesson_02_LoginResource {
+public class Lesson_02_FilteringResource {
 
     @GetMapping("/login")
     public MappingJacksonValue fetchLogin(){
