@@ -7,6 +7,9 @@ import org.know.rest.webservices.knowrestfulwebservices.dao.UserDaoService;
 import org.know.rest.webservices.knowrestfulwebservices.exception.UserNotFoundException;
 import org.know.rest.webservices.knowrestfulwebservices.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,10 +35,14 @@ public class Lesson_01_UserResource {
     }
     
     @GetMapping(path = "/users/id/{id}")
-    public User retriveUser(@PathVariable Integer id){
+    public Resource<User> retriveUser(@PathVariable Integer id){
         final User user = daoService.userWithId(id);
-        if(user == null) throw new UserNotFoundException("id : "+id); 
-        return user;
+        if(user == null) throw new UserNotFoundException("id : "+id);
+        
+        final Resource<User> resource = new Resource<>(user);
+        final ControllerLinkBuilder controllerLinkBuilder = linkTo(methodOn(this.getClass()).retriveAllUsers());
+            resource.add(controllerLinkBuilder.withRel("all-Users"));
+        return resource;
     }
     
     @DeleteMapping(path = "/users/id/{id}")
