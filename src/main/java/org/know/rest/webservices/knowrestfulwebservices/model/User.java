@@ -1,5 +1,7 @@
 package org.know.rest.webservices.knowrestfulwebservices.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
 import java.util.Objects;
 import javax.validation.constraints.NotNull;
@@ -10,15 +12,18 @@ import javax.validation.constraints.Size;
  *
  * @author KnowGroup
  */
+@ApiModel(description = "User Details")
 public class User {
 
     private Integer id;
 
     @Size(min = 2, message = "User Name must be of minimum 2 letters")
+    @ApiModelProperty(notes="Name must be of minimum 2 letters")
     @NotNull
     private String name;
 
     @Past( message = "Birthdate must only be in past")
+    @ApiModelProperty(notes="Birthdate must be in past")
     @NotNull
     private LocalDate birthDate;
 
