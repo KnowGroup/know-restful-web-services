@@ -4,6 +4,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.time.LocalDate;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
@@ -13,8 +16,11 @@ import javax.validation.constraints.Size;
  * @author KnowGroup
  */
 @ApiModel(description = "User Details")
+@Entity
 public class User {
 
+    @Id
+    @GeneratedValue
     private Integer id;
 
     @Size(min = 2, message = "User Name must be of minimum 2 letters")
